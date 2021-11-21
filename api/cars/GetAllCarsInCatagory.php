@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             echo json_encode($response, JSON_PRETTY_PRINT);
         } else {
             $response['error'] = true;
-            $response['message'] = "empity category";
+            $response['message'] = "empty category";
             echo json_encode($response);
         }
     } else {
@@ -20,4 +20,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
 }
- 
