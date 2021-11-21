@@ -97,11 +97,7 @@ class DBCarsOperations
 
 
 
-
-
-
-
-
+    
     public function getAllCarsInfoByCategory($category_name)
     {
         $stm = $this->con->query(
