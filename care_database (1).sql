@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2021 at 03:27 PM
+-- Generation Time: Nov 21, 2021 at 08:15 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -54,7 +54,7 @@ CREATE TABLE `car` (
   `car_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `car_name` char(200) NOT NULL,
-  `model_year` date NOT NULL,
+  `model_year` year(4) NOT NULL,
   `motor_capacity` int(11) NOT NULL,
   `mechanical_horse` int(11) NOT NULL,
   `model` char(200) NOT NULL,
@@ -71,10 +71,11 @@ CREATE TABLE `car` (
 --
 
 INSERT INTO `car` (`car_id`, `category_id`, `car_name`, `model_year`, `motor_capacity`, `mechanical_horse`, `model`, `number_of_set`, `tank_size`, `price`, `admin_id`, `count`, `turbo`) VALUES
-(55677, 1, 'hyandai', '2021-11-11', 1600, 110, 'verna', 5, 50, 120000, 1, 5, 0),
-(88777, 2, 'kia', '2018-11-28', 1600, 140, 'cerato', 5, 50, 250000, 1, 8, 1),
-(8899900, 3, 'bmw', '2021-11-17', 2000, 250, 'E36 coupe', 4, 60, 550000, 1, 3, 1),
-(8986678, 4, 'toyota', '2014-11-12', 1800, 200, 'Hais', 14, 80, 400000, 1, 12, 0);
+(55677, 1, 'hyandai', 2021, 1600, 110, 'verna', 5, 50, 120000, 1, 5, 0),
+(88777, 2, 'kia', 2018, 1600, 140, 'cerato', 5, 50, 250000, 1, 8, 1),
+(556773, 1, 'hyandai', 2021, 1600, 110, 'Acsent', 5, 50, 120000, 1, 5, 0),
+(8899900, 3, 'bmw', 2021, 2000, 250, 'E36 coupe', 4, 60, 550000, 1, 3, 1),
+(8986678, 4, 'toyota', 2014, 1800, 200, 'Hais', 14, 80, 400000, 1, 12, 0);
 
 -- --------------------------------------------------------
 
@@ -94,8 +95,8 @@ CREATE TABLE `car_category` (
 INSERT INTO `car_category` (`category_id`, `category_name`) VALUES
 (1, 'Sedan'),
 (2, 'Suv'),
-(3, 'coupe'),
-(4, 'van');
+(3, 'Coupe'),
+(4, 'Van');
 
 -- --------------------------------------------------------
 
@@ -125,6 +126,50 @@ INSERT INTO `car_image` (`image_id`, `url`, `car_id`, `image_type`) VALUES
 (8, 'http://localhost/carsApi/api/image/20210212120952_Hiace_front.jpg', 8986678, 'Cover'),
 (9, 'http://localhost/carsApi/api/image/hais2.jpeg', 8986678, NULL),
 (10, 'http://localhost/carsApi/api/image/toyota_hiace-3-door-pv_dark-green-mica-metallic.jpg', 8986678, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `clint_request`
+--
+
+CREATE TABLE `clint_request` (
+  `req_id` int(11) NOT NULL,
+  `f_name` varchar(200) DEFAULT NULL,
+  `l_name` varchar(200) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `phone` varchar(22) DEFAULT NULL,
+  `car_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `clint_request`
+--
+
+INSERT INTO `clint_request` (`req_id`, `f_name`, `l_name`, `birth_date`, `address`, `phone`, `car_id`) VALUES
+(6, 'mahmoud', 'kamal', '2021-11-10', 'hellwan', '35435435435', 88777);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `request_doc`
+--
+
+CREATE TABLE `request_doc` (
+  `doc_id` int(11) NOT NULL,
+  `req_id` int(11) DEFAULT NULL,
+  `front_id` text DEFAULT NULL,
+  `rear_id` text DEFAULT NULL,
+  `license` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `request_doc`
+--
+
+INSERT INTO `request_doc` (`doc_id`, `req_id`, `front_id`, `rear_id`, `license`) VALUES
+(8, 6, 'http://localhost/carsApi/api/image/front_id20211121201323.jpg', 'http://localhost/carsApi/api/image/rear_id20211121201323.jpg', 'http://localhost/carsApi/api/image/license20211121201323.jpg');
 
 --
 -- Indexes for dumped tables
@@ -158,6 +203,20 @@ ALTER TABLE `car_image`
   ADD KEY `car_id` (`car_id`);
 
 --
+-- Indexes for table `clint_request`
+--
+ALTER TABLE `clint_request`
+  ADD PRIMARY KEY (`req_id`),
+  ADD KEY `car_id` (`car_id`);
+
+--
+-- Indexes for table `request_doc`
+--
+ALTER TABLE `request_doc`
+  ADD PRIMARY KEY (`doc_id`),
+  ADD KEY `req_id` (`req_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -180,6 +239,18 @@ ALTER TABLE `car_image`
   MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `clint_request`
+--
+ALTER TABLE `clint_request`
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `request_doc`
+--
+ALTER TABLE `request_doc`
+  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -195,6 +266,18 @@ ALTER TABLE `car`
 --
 ALTER TABLE `car_image`
   ADD CONSTRAINT `car_image_ibfk_1` FOREIGN KEY (`car_id`) REFERENCES `car` (`car_id`);
+
+--
+-- Constraints for table `clint_request`
+--
+ALTER TABLE `clint_request`
+  ADD CONSTRAINT `clint_request_ibfk_1` FOREIGN KEY (`car_id`) REFERENCES `car` (`car_id`);
+
+--
+-- Constraints for table `request_doc`
+--
+ALTER TABLE `request_doc`
+  ADD CONSTRAINT `request_doc_ibfk_1` FOREIGN KEY (`req_id`) REFERENCES `clint_request` (`req_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
