@@ -56,4 +56,27 @@ class DBUsersOperations
         } else
             return false;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    ///////////test image array
+    public function AddImageArray($image)
+    {
+        foreach ($image as $value) {
+            $date = date('YmdHis');
+            $index = array_search($value, array_merge($image));
+            $front_id_path = "../../api/image/free$date.$index.jpg";
+            file_put_contents($front_id_path, base64_decode($value));
+        }
+        return true;
+    }
 }
