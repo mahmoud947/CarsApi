@@ -16,12 +16,12 @@ class DBUsersOperations
         $this->con = $db->connect();
     }
 
-    public function AddNewReq($f_name, $l_name, $birth_date, $address, $phone, $car_id, $front_id, $rear_id, $license)
+    public function AddNewReq($f_name, $l_name, $birth_date, $address, $phone, $email, $car_id, $front_id, $rear_id, $license)
     {
         $stm = $this->con->prepare(
-            "INSERT INTO `clint_request` (`req_id`, `f_name`, `l_name`, `birth_date`, `address`, `phone`, `car_id`) VALUES (NULL, ?, ?, ?, ?, ?, ?);"
+            "INSERT INTO `clint_request` (`req_id`, `f_name`, `l_name`, `birth_date`, `address`, `phone`,`email`, `car_id`) VALUES (NULL, ?, ?, ?, ?, ?, ?,?);"
         );
-        $stm->bind_param("sssssi", $f_name, $l_name, $birth_date, $address, $phone, $car_id);
+        $stm->bind_param("ssssssi", $f_name, $l_name, $birth_date, $address, $phone, $email, $car_id);
         if ($stm->execute())
             if ($this->AddNewReqDoc($front_id, $rear_id, $license))
                 return true;

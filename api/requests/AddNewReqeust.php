@@ -5,11 +5,12 @@ $respnse = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (
-        isset($_POST['f_name']) and 
+        isset($_POST['f_name']) and
         isset($_POST['l_name']) and
         isset($_POST['birth_date']) and
         isset($_POST['address']) and
         isset($_POST['phone']) and
+        isset($_POST['email']) and
         isset($_POST['car_id']) and
         isset($_POST['front_id']) and
         isset($_POST['rear_id']) and
@@ -23,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST['birth_date'],
             $_POST['address'],
             $_POST['phone'],
+            $_POST['email'],
             $_POST['car_id'],
             $_POST['front_id'],
             $_POST['rear_id'],
