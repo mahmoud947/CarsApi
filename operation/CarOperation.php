@@ -50,7 +50,7 @@ class DBCarsOperations
                 "cover" => $this->getCoverImagebyCarID($car_id),
                 "image" => $this->getOtherImagebyCarID($car_id)
             );
-
+           
             array_push($carsArray, $e);
         }
         return $carsArray;
