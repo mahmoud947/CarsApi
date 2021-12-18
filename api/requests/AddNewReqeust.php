@@ -5,7 +5,7 @@ $respnse = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (
-        isset($_POST['f_name']) and
+        isset($_POST['f_name']) and 
         isset($_POST['l_name']) and
         isset($_POST['birth_date']) and
         isset($_POST['address']) and
