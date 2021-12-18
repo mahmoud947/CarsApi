@@ -28,6 +28,7 @@ class DBCarsOperations
 			 INNER JOIN car_category
            ON car.category_id=car_category.category_id"
         );
+
         $carsArray = array();
 
         while ($row = $stm->fetch_assoc()) {
@@ -97,7 +98,7 @@ class DBCarsOperations
 
 
 
-    
+
     public function getAllCarsInfoByCategory($category_name)
     {
         $stm = $this->con->query(
@@ -163,7 +164,4 @@ class DBCarsOperations
         }
         return $imageArray;
     }
-
-
-   
 }
