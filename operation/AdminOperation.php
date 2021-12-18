@@ -52,6 +52,48 @@ class DBAdminOperations
     }
 
 
+    public function getRequestByReqID($req_id)
+    {
+        $stm = $this->con->query("SELECT clint_request.req_id,clint_request.f_name,clint_request.l_name,clint_request.birth_date,clint_request.email,
+        clint_request.address,clint_request.phone,clint_request.car_id  
+        ,car.model , car.price from clint_request 
+        INNER JOIN car on
+         clint_request.car_id=car.car_id and clint_request.req_id=$req_id");
+
+        $requestArray = array();
+        while ($row = $stm->fetch_assoc()) {
+            extract($row);
+            $e = array(
+                "req_id" => $req_id,
+                "f_name" => $f_name,
+                "l_name" => $l_name,
+                "birth_date" => $birth_date,
+                "address" => $address,
+                "phone" => $phone,
+                "car_id" => $car_id,
+                "model" => $model,
+                "price" => $price,
+                "email" => $email,
+                "cover" => $this->getCoverImagebyCarID($car_id)
+            );
+            array_push($requestArray, $e);
+        }
+        return $requestArray;
+    }
+
+    public function deleteRequestByReqID($req_id)
+    {
+        $stm = $this->con->prepare("DELETE FROM request_doc WHERE request_doc.req_id=?");
+        $stm->bind_param('i', $req_id);
+        if ($stm->execute()) {
+            $stm1 = $this->con->prepare("DELETE FROM clint_request WHERE clint_request.req_id=?");
+            $stm1->bind_param('i', $req_id);
+            if ($stm1->execute())
+                return true;
+        } else
+            return false;
+    }
+
 
 
 
