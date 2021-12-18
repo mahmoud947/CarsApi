@@ -24,8 +24,8 @@ class DBAdminOperations
     }
     public function getAllRequest()
     {
-        $stm = $this->con->query("SELECT clint_request.req_id,clint_request.f_name,clint_request.l_name,clint_request.birth_date
-        ,clint_request.address,clint_request.phone,clint_request.car_id  
+        $stm = $this->con->query("SELECT clint_request.req_id,clint_request.f_name,clint_request.l_name,clint_request.birth_date,clint_request.email,
+        clint_request.address,clint_request.phone,clint_request.car_id  
         ,car.model , car.price from clint_request 
         INNER JOIN car on
          clint_request.car_id=car.car_id;");
@@ -43,6 +43,7 @@ class DBAdminOperations
                 "car_id" => $car_id,
                 "model" => $model,
                 "price" => $price,
+                "email" => $email,
                 "cover" => $this->getCoverImagebyCarID($car_id)
             );
             array_push($requestArray, $e);
@@ -61,7 +62,7 @@ class DBAdminOperations
 
 
 
-    
+
 
     public function getCoverImagebyCarID($car_id)
     {
