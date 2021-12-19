@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2021 at 08:15 PM
+-- Generation Time: Dec 19, 2021 at 03:12 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -73,7 +73,6 @@ CREATE TABLE `car` (
 INSERT INTO `car` (`car_id`, `category_id`, `car_name`, `model_year`, `motor_capacity`, `mechanical_horse`, `model`, `number_of_set`, `tank_size`, `price`, `admin_id`, `count`, `turbo`) VALUES
 (55677, 1, 'hyandai', 2021, 1600, 110, 'verna', 5, 50, 120000, 1, 5, 0),
 (88777, 2, 'kia', 2018, 1600, 140, 'cerato', 5, 50, 250000, 1, 8, 1),
-(556773, 1, 'hyandai', 2021, 1600, 110, 'Acsent', 5, 50, 120000, 1, 5, 0),
 (8899900, 3, 'bmw', 2021, 2000, 250, 'E36 coupe', 4, 60, 550000, 1, 3, 1),
 (8986678, 4, 'toyota', 2014, 1800, 200, 'Hais', 14, 80, 400000, 1, 12, 0);
 
@@ -96,7 +95,9 @@ INSERT INTO `car_category` (`category_id`, `category_name`) VALUES
 (1, 'Sedan'),
 (2, 'Suv'),
 (3, 'Coupe'),
-(4, 'Van');
+(4, 'Van'),
+(5, 'Hatchback'),
+(6, 'cabriolet');
 
 -- --------------------------------------------------------
 
@@ -140,15 +141,19 @@ CREATE TABLE `clint_request` (
   `birth_date` date DEFAULT NULL,
   `address` text DEFAULT NULL,
   `phone` varchar(22) DEFAULT NULL,
-  `car_id` int(11) NOT NULL
+  `car_id` int(11) NOT NULL,
+  `email` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `clint_request`
 --
 
-INSERT INTO `clint_request` (`req_id`, `f_name`, `l_name`, `birth_date`, `address`, `phone`, `car_id`) VALUES
-(6, 'mahmoud', 'kamal', '2021-11-10', 'hellwan', '35435435435', 88777);
+INSERT INTO `clint_request` (`req_id`, `f_name`, `l_name`, `birth_date`, `address`, `phone`, `car_id`, `email`) VALUES
+(8, 'mahmoud', 'kamal', '2021-11-10', 'hellwan', '35435435435', 88777, ''),
+(9, 'mahmoud', 'kamal', '2021-11-10', 'hellwan', '35435435435', 55677, ''),
+(10, 'mahmoud', 'kamal', '2021-11-10', 'hellwan', '35435435435', 55677, 'dfdf'),
+(11, 'mahmoud', 'kamal', '2021-11-10', 'hellwan', '35435435435', 55677, 'dfdf');
 
 -- --------------------------------------------------------
 
@@ -169,7 +174,10 @@ CREATE TABLE `request_doc` (
 --
 
 INSERT INTO `request_doc` (`doc_id`, `req_id`, `front_id`, `rear_id`, `license`) VALUES
-(8, 6, 'http://localhost/carsApi/api/image/front_id20211121201323.jpg', 'http://localhost/carsApi/api/image/rear_id20211121201323.jpg', 'http://localhost/carsApi/api/image/license20211121201323.jpg');
+(10, 8, 'http://localhost/carsApi/api/image/front_id20211218185420.jpg', 'http://localhost/carsApi/api/image/rear_id20211218185420.jpg', 'http://localhost/carsApi/api/image/license20211218185420.jpg'),
+(11, 9, 'http://localhost/carsApi/api/image/front_id20211218230030.jpg', 'http://localhost/carsApi/api/image/rear_id20211218230030.jpg', 'http://localhost/carsApi/api/image/license20211218230030.jpg'),
+(12, 10, 'http://localhost/carsApi/api/image/front_id20211218230327.jpg', 'http://localhost/carsApi/api/image/rear_id20211218230327.jpg', 'http://localhost/carsApi/api/image/license20211218230327.jpg'),
+(13, 11, 'http://localhost/carsApi/api/image/front_id20211218230541.jpg', 'http://localhost/carsApi/api/image/rear_id20211218230541.jpg', 'http://localhost/carsApi/api/image/license20211218230541.jpg');
 
 --
 -- Indexes for dumped tables
@@ -230,7 +238,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `car_category`
 --
 ALTER TABLE `car_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `car_image`
@@ -242,13 +250,13 @@ ALTER TABLE `car_image`
 -- AUTO_INCREMENT for table `clint_request`
 --
 ALTER TABLE `clint_request`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `request_doc`
 --
 ALTER TABLE `request_doc`
-  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
