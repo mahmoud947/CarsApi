@@ -73,6 +73,9 @@ class DBUsersOperations
     {
         foreach ($image as $value) {
             $date = date('YmdHis');
+            $front_id_path = "../../api/image/front_id$date.jpg";
+            $front_id_actulpath = "http://localhost/carsApi/api/image/front_id$date.jpg";
+            
             $index = array_search($value, array_merge($image));
             $front_id_path = "../../api/image/free$date.$index.jpg";
             file_put_contents($front_id_path, base64_decode($value));

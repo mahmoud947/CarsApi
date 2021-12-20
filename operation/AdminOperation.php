@@ -97,6 +97,50 @@ class DBAdminOperations
 
 
 
+    public function insertNewCar(
+        $car_id,
+        $category_id,
+        $car_name,
+        $model_year,
+        $motor_capacity,
+        $mechanical_horse,
+        $model,
+        $number_of_set,
+        $tank_size,
+        $price,
+        $admin_id,
+        $count,
+        $turbo,
+        $cover,
+        $images
+    ) {
+        $stm = $this->con->prepare("INSERT INTO `car` (`car_id`, `category_id`, `car_name`, `model_year`,
+         `motor_capacity`, `mechanical_horse`, `model`, `number_of_set`,
+          `tank_size`, `price`, `admin_id`, `count`, `turbo`) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        $stm->bind_param(
+            "iisiiisiddiii",
+            $car_id,
+            $category_id,
+            $car_name,
+            $model_year,
+            $motor_capacity,
+            $mechanical_horse,
+            $model,
+            $number_of_set,
+            $tank_size,
+            $price,
+            $admin_id,
+            $count,
+            $turbo
+        );
+
+        if ($stm->execute())
+            return true;
+        else
+            return false;
+    }
 
 
 
