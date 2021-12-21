@@ -17,7 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         isset($_POST['price']) and
         isset($_POST['admin_id']) and
         isset($_POST['count']) and
-        isset($_POST['turbo'])
+        isset($_POST['turbo']) and
+        isset($_POST['cover']) and
+        isset($_POST['images'])
 
     ) {
         $db = new DBAdminOperations;
@@ -35,7 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST['price'],
             $_POST['admin_id'],
             $_POST['count'],
-            $_POST['turbo']
+            $_POST['turbo'],
+            $_POST['cover'],
+            $_POST['images']
         )) {
             $respnse['error'] = false;
             $respnse['message'] = "car inserted successfully";
