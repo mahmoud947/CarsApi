@@ -144,6 +144,20 @@ class DBAdminOperations
     }
 
 
+    public function deleteCareByCarID($car_id)
+    {
+        $stm = $this->con->prepare("DELETE FROM car_image WHERE car_image.car_id=?");
+        $stm->bind_param('i', $car_id);
+        if ($stm->execute()) {
+            $stm1 = $this->con->prepare("DELETE FROM car WHERE car.car_id=?");
+            $stm1->bind_param('i', $car_id);
+            if ($stm1->execute())
+                return true;
+        } else
+            return false;
+    }
+
+
 
 
 
