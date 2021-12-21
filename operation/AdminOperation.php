@@ -44,7 +44,10 @@ class DBAdminOperations
                 "model" => $model,
                 "price" => $price,
                 "email" => $email,
-                "cover" => $this->getCoverImagebyCarID($car_id)
+                "front_id" => $this->getRequestDoc($req_id)["front_id"],
+                "rear_id" => $this->getRequestDoc($req_id)["rear_id"],
+                "license" => $this->getRequestDoc($req_id)["license"],
+                "car_cover" => $this->getCoverImagebyCarID($car_id)
             );
             array_push($requestArray, $e);
         }
@@ -74,7 +77,10 @@ class DBAdminOperations
                 "model" => $model,
                 "price" => $price,
                 "email" => $email,
-                "cover" => $this->getCoverImagebyCarID($car_id)
+                "front_id" => $this->getRequestDoc($req_id)["front_id"],
+                "rear_id" => $this->getRequestDoc($req_id)["rear_id"],
+                "license" => $this->getRequestDoc($req_id)["license"],
+                "car_cover" => $this->getCoverImagebyCarID($car_id)
             );
             array_push($requestArray, $e);
         }
@@ -174,19 +180,6 @@ class DBAdminOperations
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     ////////////////////////////////////////////////////////
 
     public function AddCareImages($images, $car_id, $cover)
@@ -236,5 +229,23 @@ class DBAdminOperations
                 $cover = $url;
         }
         return $cover;
+    }
+
+
+
+
+    public function getRequestDoc($req_id)
+    {
+        $stm = $this->con->query("SELECT * FROM request_doc WHERE req_id=$req_id");
+
+        while ($raw = $stm->fetch_assoc()) {
+            extract($raw);
+            $doc = array(
+                "front_id" => $front_id,
+                "rear_id" => $rear_id,
+                "license" => $license
+            );
+        }
+        return $doc;
     }
 }

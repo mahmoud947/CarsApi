@@ -59,41 +59,5 @@ class DBUsersOperations
 
 
 
-
-
-
-
-
-
-
-
-
-    /////////test image array
-    public function AddImageArray($image, $car_id, $cover)
-    {
-        $stm = $this->con->prepare(
-            " INSERT INTO `car_image` (`image_id`, `url`, `car_id`, `image_type`) 
-            VALUES (NULL,?,?,'Cover');"
-        );
-        $Cover_path = "../../api/image/$car_id.jpg";
-        $Cover_actulpath = "http://localhost/carsApi/api/image/$car_id.jpg";
-        $stm->bind_param("si", $Cover_actulpath, $car_id);
-        if ($stm->execute())
-            file_put_contents($Cover_path, base64_decode($cover));
-
-        foreach ($image as $value) {
-
-            $stm = $this->con->prepare(
-                " INSERT INTO `car_image` (`image_id`, `url`, `car_id`, `image_type`) 
-            VALUES (NULL,?,?,NULL);"
-            );
-            $index = array_search($value, array_merge($image));
-            $image_path = "../../api/image/$car_id.jpg";
-            $image_actulpath = "http://localhost/carsApi/api/image/$car_id.$index.jpg";
-            $stm->bind_param("si", $image_actulpath, $car_id);
-            if ($stm->execute())
-                file_put_contents($image_path, base64_decode($value));
-        }
-        return true;
-    }
+    
 }
